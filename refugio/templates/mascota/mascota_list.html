@@ -1,0 +1,57 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="alert-alert-{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+<h2>Lista de mascotas Clases</h2>
+<table class="table table-hover">
+	<thead>
+		<tr class="titletabla">
+			<td>#</td>
+			<td>Nombre</td>
+			<td>Sexo</td>
+			<td>Edad</td>
+			<td>Fecha de rescate</td>
+			<td>Adoptante</td>
+            <td>Imagen</td>
+			<td>Acciones</td>
+		</tr>
+	</thead>
+	<tbody>
+		{% if object_list %}
+		{% for mascota in object_list %}
+		<tr>
+			<td>{{mascota.id}}</td>
+			<td>{{mascota.nombre}}</td>
+			<td>{{mascota.sexo}}</td>
+			<td>{{mascota.edad_aproximada}}</td>
+			<td>{{mascota.fecha_rescate}}</td>
+			<td>{{mascota.persona.nombre}} {{mascota.persona.apellido}}</td>
+            <td>
+                {% if mascota.imagen %}
+                <img class="img-mascota" src="{{ mascota.imagen.url }}" alt="Imagen-mascota" />
+                {% else %}
+                <img class="img-mascota" src="{{ MEDIA_URL }}imagenes_mascota/default.png" alt="No se encontro imagen" />
+                {% endif %}
+           </td>
+               <!--<img src="{{ model_instance.image_field.url }}" alt="Image"></td>-->
+			<td>
+				<a class="btn btn-primary" href="{% url 'mascota_editar' mascota.id %}">Editar</a>
+				<a class="btn btn-primary" href="{% url 'mascota_delete' mascota.id %}">Eliminar</a>
+			</td>
+		</tr>
+		{% endfor %}
+
+		{% else %}	
+		<h1> No se encontaron registros de mascotas</h1>
+	    {% endif %}
+	</tbody>
+</table>
+
+{% endblock %}

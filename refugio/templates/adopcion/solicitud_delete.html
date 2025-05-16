@@ -1,0 +1,18 @@
+{% extends 'base/base.html' %} 
+
+{% block content %}
+{#Estos es un comentario#}
+
+{% comment %}
+    Esto es un comentario
+    que abarca varias lineas
+{% endcomment}
+
+<br>
+<form method="post">
+        {% csrf_token %}
+        <h3>¿Estas seguro deseas eliminar la solicitud de {{ object.persona.nombre }} {{ object.persona.apellidos }}?</h3>
+        <button class="btn btn-danger" type="submit">Eliminar solicitud</button>
+        <a class="btn btn-secondary" href="{% url 'solicitud_listar' %}">Cancelar</a>
+</form>
+{% endblock %}

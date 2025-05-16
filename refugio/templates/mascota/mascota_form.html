@@ -1,0 +1,45 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+<h1>Registra una mascota</h1>
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="alert-alert-{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+	<form class="was-validated" method="post" enctype="multipart/form-data" novalidate>
+		{% csrf_token %}
+		{{ form.as_p }}
+      <button class="btn-info-enviar" type="submit"> Guardar</button>	
+	</form>
+     <script type="text/javascript">
+
+     jQuery.datetimepicker.setLocale('es');
+    
+
+ jQuery('#id_fecha_rescate').datetimepicker({
+ i18n:{
+  es:{
+   months:[
+    'Enero','Febrero','Marzo','Abril',
+    'Mayo','Junio','Julio','Agosto',
+    'Septiembre','Octubre','Noviembre','Diciembre',
+   ],
+   dayOfWeek:[
+    "Domingo.", "Lunes", "Martes", "Miercoles",
+    "Jueves", "Viernes", "Sabado",
+   ]
+  }
+ },
+ timepicker:false,
+ format:'Y-m-d',
+ lang:'en'
+});
+     </script>
+
+
+{% endblock %}
